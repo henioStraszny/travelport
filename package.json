@@ -1,0 +1,25 @@
+{
+  "name": "server-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/main.js",
+  "scripts": {
+    "start": "nodemon -L --inspect=[::]:5858 --nolazy ./dist/src/main.js",
+    "test": ".\\node_modules\\.bin\\mocha --opts .\\mocha-ts.opts -w",
+    "tsc": "tsc",
+    "tsc:watch": "tsc -w"
+  },
+  "author": "Jacek Styrylski",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "debug": "^2.6.0",
+    "nodemon": "^1.11.0",
+    "express": "^4.14.1"
+  },
+  "devDependencies": {
+    "@types/debug": "0.0.29",
+    "@types/express": "^4.0.35",
+    "@types/node": "^8.0.5"
+  }
+}
