@@ -1,7 +1,7 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
 
-export class Configurator implements IConfigurator {
+export class ExpressConfigurator implements IExpressConfigurator {
     public Settings: Array<(req: express.Request, res: express.Response, next: express.NextFunction) => void>;
     public Port: number;
     public ErrorHandlingSettings: Array<(
@@ -32,6 +32,7 @@ export class Configurator implements IConfigurator {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        res.header('Content-Type', 'application/json');
         next();
     }
 
@@ -43,14 +44,15 @@ export class Configurator implements IConfigurator {
         if (err.EvaluatedError == 404) res.status(404);
         else res.status(500);
 
-        res.json({
-            error: err.message,
-            stack: err.stack
-        });
+        res.send(JSON.stringify({
+             error: err.message,
+             stack: err.stack
+         }, null, 4));
+
     }
 }
 
-export interface IConfigurator {
+export interface IExpressConfigurator {
     Settings: Array<(
         req: express.Request, 
         res: express.Response, 
