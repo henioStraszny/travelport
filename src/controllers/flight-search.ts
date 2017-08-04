@@ -8,7 +8,7 @@ export let FlightSearch = async (req: Request, res: Response) => {
     const DATE: string = "date";
     const FROM: string = "from";
     const TO: string = "to";
-    //TODO: format string
+
     let date = req.query[DATE];
     let from = req.query[FROM];
     let to = req.query[TO];
