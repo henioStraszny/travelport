@@ -1,4 +1,4 @@
-import { AsyncMiddleware } from './../helpers/async-middleware';
+import { AsyncMiddleware } from './async-middleware';
 import { FlightSearch } from './../controllers/flight-search';
 import { GetAirports } from './../controllers/airports';
 import { GetAirlines } from './../controllers/airlines';

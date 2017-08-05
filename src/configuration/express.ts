@@ -1,14 +1,16 @@
+import { RequestError } from './../controllers/request-error';
 import * as bodyParser from "body-parser";
 import * as express from "express";
+import * as expressValidator from "express-validator";
 
 export class ExpressConfigurator implements IExpressConfigurator {
     public Settings: Array<(req: express.Request, res: express.Response, next: express.NextFunction) => void>;
     public Port: number;
     public ErrorHandlingSettings: Array<(
-        err: any, 
-        req: express.Request, 
-        res: express.Response, 
-        next: express.NextFunction) 
+        err: any,
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction)
         => void>;
 
     constructor() {
@@ -16,7 +18,8 @@ export class ExpressConfigurator implements IExpressConfigurator {
             this.setHeaders,
             this.logger,
             bodyParser.json(),
-            bodyParser.urlencoded({ extended: false })
+            bodyParser.urlencoded({ extended: false }),
+            expressValidator()
         ];
         this.ErrorHandlingSettings = [
             this.error
@@ -37,32 +40,30 @@ export class ExpressConfigurator implements IExpressConfigurator {
     }
 
     private error(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
-        if (res.headersSent) {
-            return next(err);
-        }
-
-        if (err.EvaluatedError == 404) res.status(404);
-        else res.status(500);
-
-        res.send(JSON.stringify({
-             error: err.message,
-             stack: err.stack
-         }, null, 4));
-
+        if (err instanceof RequestError)
+            res.status(400).send({
+                error: err.message,
+                details: err.errorObject
+            });
+        else
+            res.status(500).send({
+                error: err.message,
+                stack: err.stack
+            });
     }
 }
 
 export interface IExpressConfigurator {
     Settings: Array<(
-        req: express.Request, 
-        res: express.Response, 
-        next: express.NextFunction) 
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction)
         => void>;
     Port: number;
     ErrorHandlingSettings: Array<(
-        err: any, 
-        req: express.Request, 
-        res: express.Response, 
-        next: express.NextFunction) 
+        err: any,
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction)
         => void>;
 }

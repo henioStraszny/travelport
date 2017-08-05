@@ -5,6 +5,7 @@ import { Application } from 'express';
 import * as Moment from "moment";
 import * as express from "express";
 
+
 class Main {
     public app: Application;
     public nodeServer: Server;
@@ -18,7 +19,6 @@ class Main {
         this.app.use(routes.Router);
         this.app.use(configurator.ErrorHandlingSettings);
         this.app.set('json spaces', 2);
-
         this.nodeServer = this.app.listen(configurator.Port);
         console.log(`Started at: ${Moment().format('YYYY-MM-DD HH:mm:ss')}`);
     }
