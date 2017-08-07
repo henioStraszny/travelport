@@ -1,12 +1,7 @@
 import { RequestError } from './../controllers/request-error';
-import { IAirport } from './../models/airport';
-import { Airlines } from './airlines';
+import { IAirport, Airport } from './../models/airport';
 import { Flight, IFlight } from './../models/flight';
-import { ClientOptions } from './../configuration/client';
-import * as rp from "request-promise";
-import { URLSearchParams, URL } from "url";
-import { Airports } from "./airports";
-//switch imports to common.js
+import { LocomoteService } from './../service/locomote-service';
 
 export class Flights {
     public static async Search(
@@ -16,11 +11,11 @@ export class Flights {
 
         await this.ValidateAirport(from);
         await this.ValidateAirport(to);
-        let airlines = await Airlines.Get();
+        let airlines = await LocomoteService.GetAirlines();
         let response: Array<any> = [];
         let result: Array<IFlight> = [];
         for (var i = 0; i < airlines.length; i++) {
-            response.push(await this.SearchOneAirline(airlines[i].Code, date, from, to));
+            response.push(await LocomoteService.FlightSearch(airlines[i].Code, date, from, to));
         }
 
         for (var i = 0; i < response.length; i++) {
@@ -42,29 +37,14 @@ export class Flights {
         return result;
     }
 
-    private static async SearchOneAirline(
-        airlineCode: string,
-        date: string,
-        from: string,
-        to: string) {
-
-        let options = ClientOptions;
-        const URI: string = "flight_search";
-        let searchParams: URLSearchParams = new URLSearchParams();
-        searchParams.append("date", date);
-        searchParams.append("from", from);
-        searchParams.append("to", to);
-        //TODO: Find library fo building uri worst case use string builder
-        options["uri"] = URI
-            + '/'
-            + airlineCode
-            + '?' + searchParams.toString();
-
-        return await rp.get(options);
-    }
-
     private static async ValidateAirport(airportShortcut: string) {
-        let airports: Array<IAirport> = await Airports.Get(airportShortcut);
+        let result: Array<any> = await LocomoteService.GetAirports(airportShortcut);
+        let airports: Array<IAirport> = [];
+
+        for (var i = 0; i < result.length; i++) {
+            airports.push(new Airport(result[i]));
+        }
+
         for (var i = 0; i < airports.length; i++) {
             if (airports[i].Code == airportShortcut)
                 return;
