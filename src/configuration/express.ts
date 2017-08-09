@@ -15,8 +15,10 @@ export class ExpressConfigurator implements IExpressConfigurator {
 
     constructor() {
         this.Settings = [
+            express.static('public'),
             this.setHeaders,
             this.logger,
+            express.static(__dirname + '/../public'),
             bodyParser.json(),
             bodyParser.urlencoded({ extended: false }),
             expressValidator()
