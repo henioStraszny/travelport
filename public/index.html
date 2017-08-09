@@ -5,22 +5,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="thirdparty/awesomplete.css" />
+    <script src="thirdparty/awesomplete.min.js" async></script>
+    <script type="text/javascript">var ajax = new XMLHttpRequest();
+        // ajax.open("GET", "https://restcountries.eu/rest/v1/lang/fr", true);
+        ajax.open("GET", "http://localhost:3000/airports?q=par", true);
+        ajax.onload = function() {
+            // console.log(ajax.response);
+            var list = ajax.response;
+            console.log(list);
+            new Awesomplete(document.querySelector("#airport"),{ list: list });
+        };
+        ajax.send();
+    </script>
     <title>TravelPort</title>
 </head>
 
 <body>
-    <header>TravelPort</header>
-    <nav>
-        <a href="">Reset</a>
-    </nav>
+    <header>
+        <h1>TravelPort</h1>
+        <nav>
+            <a href="">Reset</a>
+        </nav>
+    </header>
     <main>
-        <section class="search-from">FROM</section>
-        <section class="search-ot">To</section>
-        <aside>
-            <img src="plane.jpg" alt="Cool aircraft carrier" style="width: 490px; height: 750px" />
-            <figcaption>Are there any special requests?</figcaption>
-        </aside>
+        <section>
+            <input id="airport" class="awesomplete"/>
+
+        </section>
+        <section>To</section>
     </main>
+    <aside>
+        <img src="westeros.png" alt="Cool aircraft carrier" style="width: 490px; height: 750px" />
+        <figcaption>Where would you go?</figcaption>
+    </aside>
     <footer>
         <p>TravelPort - The Best Flight Search Engine EVER!</p>
         <p>
