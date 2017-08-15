@@ -3,20 +3,33 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="thirdparty/awesomplete.css" />
-    <script src="thirdparty/awesomplete.min.js" async></script>
-    <script type="text/javascript">var ajax = new XMLHttpRequest();
-        // ajax.open("GET", "https://restcountries.eu/rest/v1/lang/fr", true);
-        ajax.open("GET", "http://localhost:3000/airports?q=par", true);
-        ajax.onload = function() {
-            // console.log(ajax.response);
-            var list = ajax.response;
-            console.log(list);
-            new Awesomplete(document.querySelector("#airport"),{ list: list });
-        };
-        ajax.send();
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="thirdparty/awesomplete.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="thirdparty/awesomplete.min.js"></script>
+    <script src="controls/airport-selector.js"></script>
+    <script type="text/javascript">
+        
+        // $(document).ready(function(){
+        //     let input_from = new Awesomplete(document.querySelector("#airport-from"));
+        //     let input_to = new Awesomplete(document.querySelector("#airport-to"));
+        //     $("#airport-from").on("input", function(){
+        //         if(this.value.length < 2) return;
+        //         $.ajax({
+        //             url: "http://localhost:3000/airports?q=" + this.value,
+        //         }).done(function(data) {
+        //             list = data.map(function(i){
+        //                 return {
+        //                     label: i.City + " " + i.Code + " " + i.Country,
+        //                     value: i.Code
+        //                 }
+        //             });
+        //             console.log(this);
+        //             input_from.list = list;
+        //         })
+        //     });
+        // });
     </script>
     <title>TravelPort</title>
 </head>
@@ -30,8 +43,8 @@
     </header>
     <main>
         <section>
-            <input id="airport" class="awesomplete"/>
-
+            <airport-selector placeholder="From"></airport-selector>
+            <airport-selector placeholder="To"></airport-selector>
         </section>
         <section>To</section>
     </main>
