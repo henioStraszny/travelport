@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+body {
+    background-color: #fffcf2;
+    font-family: Roboto, sans-serif;
+    font-size: 2em; 
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr auto 5fr 0.5fr;
+    grid-template-areas: 
+    "header"
+    "search"
+    "side"
+    "footer";
+}
+@media screen and (min-width: 1024px){ 
+    body {
+        grid-gap: 1em;
+        grid-template-columns: 3fr 1fr;
+        grid-template-rows: 15em auto 2.5em;
+        grid-template-areas: 
+        "header header"
+        "search side"
+        "search footer";
+    }
+    aside {
+        text-align: right;
+    }
+} 
+header {
+    grid-area: header;
+    background-size: cover; 
+    background-image: url("home.jpg");
+    color: #fffcf2;
+}
+header h1 {
+    font-size: 3em;
+    font-weight: 700;
+    text-align: center; 
+}
+header nav {
+    text-align: right;
+    padding: 0.5em;
+}
+header nav a {
+    color: #fffcf2;
+}
+footer a {
+    color: #000000;
+}
+a {
+    text-decoration: none;
+}
+footer {
+    grid-area: footer;
+    font-size: 0.5em;
+    text-align: center;
+}
+
+aside {
+    grid-area: side;
+    text-align: center;
+    padding: 1em;
+}
+main {
+    grid-area: search;
+}
+figcaption {
+    font-size: 0.5em;
+}
+input {
+    width: 10em;
+    font-size: 1em;
+}
+.awesomplete ul li {
+    font-size: 1em;
+}
+button {
+    font-size: 1em;
+}
+th {
+    width: 5em;
+}
+td {
+    font-size: 0.5em;
+    text-align: center;
+}

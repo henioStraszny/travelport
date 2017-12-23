@@ -1,0 +1,30 @@
+{
+  "name": "server-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/main.js",
+  "scripts": {
+    "start": "nodemon ./dist/main.js",
+    "debug": "nodemon --inspect=[::]:5858 --nolazy ./dist/main.js",
+    "tsc:watch": "tsc -w"
+  },
+  "author": "Jacek Styrylski",
+  "license": "ISC",
+  "dependencies": {
+    "awesomplete": "^1.1.2",
+    "body-parser": "^1.16.0",
+    "debug": "^2.6.0",
+    "express": "^4.14.1",
+    "express-validator": "^3.2.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "nodemon": "^1.11.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/debug": "0.0.29",
+    "@types/express": "^4.0.35",
+    "@types/node": "^8.0.5"
+  }
+}
